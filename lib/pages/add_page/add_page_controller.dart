@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chain/models/task_model.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:hive_flutter/adapters.dart';
 
 class AddPageController extends GetxController {
   Future<void> selectDate(BuildContext context) async {
@@ -30,4 +32,6 @@ class AddPageController extends GetxController {
     6: false,
     7: false,
   };
+
+  final box = Hive.box<TaskModel>('tasks');
 }

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chain/models/task_model.dart';
 import 'package:flutter_chain/pages/add_page/add_page_controller.dart';
 import 'package:flutter_chain/widgets/select_day.dart';
 import 'package:get/get.dart';
@@ -112,8 +113,24 @@ class AddPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                print(
-                    '${controller.taskController.text} ${controller.descriptionController.text} ${controller.selectedDate} ${controller.days.map((key, value) => MapEntry(key, value))}');
+                if (controller.taskController.text.isNotEmpty && controller.days.containsValue(true)) {
+                  controller.box.add(
+                    TaskModel(
+                      task: controller.taskController.text,
+                      description: controller.descriptionController.text,
+                      date: controller.selectedDate,
+                      days: controller.days,
+                    ),
+                  );
+                } else {
+                  Get.snackbar(
+                    'Hata',
+                    'Lütfen tüm alanları doldurunuz.',
+                    snackPosition: SnackPosition.BOTTOM,
+                    backgroundColor: Colors.red,
+                    colorText: Colors.white,
+                  );
+                }
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

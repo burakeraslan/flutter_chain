@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chain/models/task_model.dart';
 import 'package:flutter_chain/pages/home_page/home_page.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/adapters.dart';
 
-void main() {
+void main() async {
+  await Hive.initFlutter();
+  Hive.registerAdapter<TaskModel>(TaskModelAdapter());
+  await Hive.openBox<TaskModel>('tasks');
   runApp(const MyApp());
 }
 
