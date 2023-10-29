@@ -7,7 +7,7 @@ import 'package:hive_flutter/adapters.dart';
 void main() async {
   await Hive.initFlutter();
   Hive.registerAdapter<TaskModel>(TaskModelAdapter());
-  await Hive.openBox<TaskModel>('tasks');
+  await Hive.openBox<TaskModel>('chainTasks');
   runApp(const MyApp());
 }
 

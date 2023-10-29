@@ -113,19 +113,39 @@ class AddPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
+                if (controller.days[controller.selectedDate.weekday] == true) {
+                  controller.chain = [
+                    {
+                      'date': controller.selectedDate,
+                      'weekDay': controller.selectedDate.weekday,
+                      'isDone': false,
+                      'chainDay': true,
+                    },
+                  ];
+                } else {
+                  controller.chain = [
+                    {
+                      'date': controller.selectedDate,
+                      'weekDay': controller.selectedDate.weekday,
+                      'isDone': false,
+                      'chainDay': false,
+                    },
+                  ];
+                }
+
                 if (controller.taskController.text.isNotEmpty && controller.days.containsValue(true)) {
                   controller.box.add(
                     TaskModel(
                       task: controller.taskController.text,
                       description: controller.descriptionController.text,
-                      date: controller.selectedDate,
                       days: controller.days,
+                      chain: controller.chain,
                     ),
                   );
                 } else {
                   Get.snackbar(
                     'Hata',
-                    'Lütfen tüm alanları doldurunuz.',
+                    'Lütfen Görev ve Rutin alanlarını doldurunuz.',
                     snackPosition: SnackPosition.BOTTOM,
                     backgroundColor: Colors.red,
                     colorText: Colors.white,
@@ -137,6 +157,11 @@ class AddPage extends StatelessWidget {
               ),
               child: const Text('Kaydet'),
             ),
+            ElevatedButton(
+                onPressed: () {
+                  controller.updateChain();
+                },
+                child: const Text('deneme'))
           ],
         ),
       );

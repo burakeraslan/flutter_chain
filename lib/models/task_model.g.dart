@@ -19,8 +19,10 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
     return TaskModel(
       task: fields[0] as String,
       description: fields[1] as String,
-      date: fields[2] as DateTime,
-      days: (fields[3] as Map).cast<dynamic, dynamic>(),
+      days: (fields[2] as Map).cast<dynamic, dynamic>(),
+      chain: (fields[3] as List)
+          .map((dynamic e) => (e as Map).cast<dynamic, dynamic>())
+          .toList(),
     );
   }
 
@@ -33,9 +35,9 @@ class TaskModelAdapter extends TypeAdapter<TaskModel> {
       ..writeByte(1)
       ..write(obj.description)
       ..writeByte(2)
-      ..write(obj.date)
+      ..write(obj.days)
       ..writeByte(3)
-      ..write(obj.days);
+      ..write(obj.chain);
   }
 
   @override

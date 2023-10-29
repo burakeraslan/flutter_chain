@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chain/models/task_model.dart';
 import 'package:flutter_chain/pages/add_page/add_page.dart';
 import 'package:flutter_chain/pages/home_page/home_page_controller.dart';
 import 'package:get/get.dart';
-import 'package:hive/hive.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
@@ -11,30 +9,67 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(HomePageController());
-    final box = Hive.box<TaskModel>('tasks');
-    print(box.values.toList());
-    return GetBuilder<HomePageController>(builder: (controller) {
-      return Scaffold(
+
+    return GetBuilder<HomePageController>(
+      builder: (controller) {
+        return Scaffold(
           appBar: AppBar(
-            title: const Text('Flutter Chain'),
+            elevation: 0,
+            backgroundColor: Colors.white,
+            leading: const Icon(
+              Icons.all_inclusive,
+              color: Colors.black,
+            ),
           ),
-          body: Center(
+          backgroundColor: Colors.white,
+          body: SingleChildScrollView(
+            physics: const BouncingScrollPhysics(),
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              // children: controller.list
+              //     .map(
+              //       (task) => Container(
+              //         padding: const EdgeInsets.all(10),
+              //         width: double.infinity,
+              //         height: 400,
+              //         color: Colors.yellow,
+              //       ).paddingAll(10),
+              //     )
+              //     .toList(),
               children: [
-                const Text('Home Page'),
-                InkWell(
-                  child: const Text(
-                    'Go to Add Page',
-                    style: TextStyle(color: Colors.blue),
-                  ).paddingAll(10),
-                  onTap: () {
-                    Get.to(() => const AddPage());
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('tıklat'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    controller.box.clear();
                   },
-                )
+                  child: const Text('Localı temizle'),
+                ),
+                ElevatedButton(
+                  onPressed: () {
+                    for (var i = 0; i < controller.box.length; i++) {
+                      final task = controller.box.getAt(i)!;
+                      print(task.task);
+                      print(task.description);
+                      print(task.days);
+                      print(task.chain);
+                    }
+                  },
+                  child: const Text('localı print et'),
+                ),
               ],
             ),
-          ));
-    });
+          ),
+          floatingActionButton: FloatingActionButton(
+            elevation: 0,
+            onPressed: () {
+              Get.to(() => const AddPage());
+            },
+            child: const Icon(Icons.add),
+          ),
+        );
+      },
+    );
   }
 }

@@ -9,14 +9,14 @@ class TaskModel {
   @HiveField(1)
   final String description;
   @HiveField(2)
-  final DateTime date;
-  @HiveField(3)
   final Map days;
+  @HiveField(3)
+  final List<Map> chain;
 
   TaskModel({
     required this.task,
     required this.description,
-    required this.date,
     required this.days,
+    required this.chain,
   });
 }
