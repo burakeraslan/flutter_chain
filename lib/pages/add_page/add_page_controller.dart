@@ -42,31 +42,33 @@ class AddPageController extends GetxController {
     if (box.isNotEmpty) {
       for (int i = 0; i < box.length; i++) {
         if (box.getAt(i)!.chain.last['date'].day != now.day || box.getAt(i)!.chain.last['date'].month != now.month || box.getAt(i)!.chain.last['date'].year != now.year) {
-          DateTime lastDate = box.getAt(i)!.chain.last['date'];
-          DateTime addDate = lastDate.add(const Duration(days: 1));
+          if (box.getAt(i)?.chain.last['date'].isBefore(now)) {
+            DateTime lastDate = box.getAt(i)!.chain.last['date'];
+            DateTime addDate = lastDate.add(const Duration(days: 1));
 
-          if (box.getAt(i)?.days[addDate.weekday] == true) {
-            chain = [
-              {
-                'date': addDate,
-                'weekDay': addDate.weekday,
-                'isDone': false,
-                'chainDay': true,
-              },
-            ];
-          } else {
-            chain = [
-              {
-                'date': addDate,
-                'weekDay': addDate.weekday,
-                'isDone': false,
-                'chainDay': false,
-              },
-            ];
+            if (box.getAt(i)?.days[addDate.weekday] == true) {
+              chain = [
+                {
+                  'date': addDate,
+                  'weekDay': addDate.weekday,
+                  'isDone': false,
+                  'chainDay': true,
+                },
+              ];
+            } else {
+              chain = [
+                {
+                  'date': addDate,
+                  'weekDay': addDate.weekday,
+                  'isDone': false,
+                  'chainDay': false,
+                },
+              ];
+            }
+
+            box.getAt(i)!.chain.addAll(chain);
+            updateChain();
           }
-
-          box.getAt(i)!.chain.addAll(chain);
-          updateChain();
         }
       }
     }

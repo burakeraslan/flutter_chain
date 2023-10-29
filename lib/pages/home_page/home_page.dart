@@ -25,40 +25,24 @@ class HomePage extends StatelessWidget {
           body: SingleChildScrollView(
             physics: const BouncingScrollPhysics(),
             child: Column(
-              // children: controller.list
-              //     .map(
-              //       (task) => Container(
-              //         padding: const EdgeInsets.all(10),
-              //         width: double.infinity,
-              //         height: 400,
-              //         color: Colors.yellow,
-              //       ).paddingAll(10),
-              //     )
-              //     .toList(),
-              children: [
-                ElevatedButton(
-                  onPressed: () {},
-                  child: const Text('tıklat'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    controller.box.clear();
-                  },
-                  child: const Text('Localı temizle'),
-                ),
-                ElevatedButton(
-                  onPressed: () {
-                    for (var i = 0; i < controller.box.length; i++) {
-                      final task = controller.box.getAt(i)!;
-                      print(task.task);
-                      print(task.description);
-                      print(task.days);
-                      print(task.chain);
-                    }
-                  },
-                  child: const Text('localı print et'),
-                ),
-              ],
+              children: controller.list
+                  .map(
+                    (task) => Container(
+                      padding: const EdgeInsets.all(10),
+                      width: double.infinity,
+                      color: Colors.yellow,
+                      child: Column(
+                        children: [
+                          Text(task.task),
+                          Text(task.description),
+                          Text(
+                            task.chain.length.toString(),
+                          ),
+                        ],
+                      ),
+                    ).paddingAll(10),
+                  )
+                  .toList(),
             ),
           ),
           floatingActionButton: FloatingActionButton(
