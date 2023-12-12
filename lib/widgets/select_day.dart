@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chain/pages/add_page/add_page_controller.dart';
+import 'package:flutter_chain/controllers/chain_controller.dart';
 
 class SelectDay extends StatelessWidget {
-  final AddPageController controller;
+  final ChainController controller;
   final int index;
   final String day;
 

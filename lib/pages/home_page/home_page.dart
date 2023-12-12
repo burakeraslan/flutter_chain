@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_chain/controllers/chain_controller.dart';
 import 'package:flutter_chain/pages/add_page/add_page.dart';
-import 'package:flutter_chain/pages/home_page/home_page_controller.dart';
 import 'package:get/get.dart';
 
 class HomePage extends StatelessWidget {
@@ -8,9 +8,9 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(HomePageController());
+    Get.put(ChainController());
 
-    return GetBuilder<HomePageController>(
+    return GetBuilder<ChainController>(
       builder: (controller) {
         return Scaffold(
           appBar: AppBar(

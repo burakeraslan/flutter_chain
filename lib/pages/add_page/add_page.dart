@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_chain/models/task_model.dart';
-import 'package:flutter_chain/pages/add_page/add_page_controller.dart';
+import 'package:flutter_chain/controllers/chain_controller.dart';
 import 'package:flutter_chain/widgets/select_day.dart';
 import 'package:get/get.dart';
 
@@ -9,8 +8,8 @@ class AddPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(AddPageController());
-    return GetBuilder<AddPageController>(builder: (controller) {
+    Get.put(ChainController());
+    return GetBuilder<ChainController>(builder: (controller) {
       return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -113,44 +112,7 @@ class AddPage extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () {
-                if (controller.days[controller.selectedDate.weekday] == true) {
-                  controller.chain = [
-                    {
-                      'date': controller.selectedDate,
-                      'weekDay': controller.selectedDate.weekday,
-                      'isDone': false,
-                      'chainDay': true,
-                    },
-                  ];
-                } else {
-                  controller.chain = [
-                    {
-                      'date': controller.selectedDate,
-                      'weekDay': controller.selectedDate.weekday,
-                      'isDone': false,
-                      'chainDay': false,
-                    },
-                  ];
-                }
-
-                if (controller.taskController.text.isNotEmpty && controller.days.containsValue(true)) {
-                  controller.box.add(
-                    TaskModel(
-                      task: controller.taskController.text,
-                      description: controller.descriptionController.text,
-                      days: controller.days,
-                      chain: controller.chain,
-                    ),
-                  );
-                } else {
-                  Get.snackbar(
-                    'Hata',
-                    'Lütfen Görev ve Rutin alanlarını doldurunuz.',
-                    snackPosition: SnackPosition.BOTTOM,
-                    backgroundColor: Colors.red,
-                    colorText: Colors.white,
-                  );
-                }
+                controller.addTask();
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,
@@ -159,9 +121,9 @@ class AddPage extends StatelessWidget {
             ),
             ElevatedButton(
                 onPressed: () {
-                  controller.updateChain();
+                  controller.box.clear();
                 },
-                child: const Text('deneme'))
+                child: const Text('sil'))
           ],
         ),
       );
