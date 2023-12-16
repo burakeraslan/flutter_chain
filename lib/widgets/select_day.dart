@@ -20,7 +20,6 @@ class SelectDay extends StatelessWidget {
         onTap: () {
           controller.days[index] = !controller.days[index]!;
           controller.update();
-          print(controller.days.map((key, value) => MapEntry(key, value)));
         },
         child: Container(
           padding: const EdgeInsets.all(10),

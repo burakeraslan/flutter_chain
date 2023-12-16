@@ -24,30 +24,33 @@ class AddPage extends StatelessWidget {
         ),
         backgroundColor: Colors.white,
         body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             TextField(
-              controller: controller.taskController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 labelText: 'Yeni Görev Ekle',
               ),
+              onChanged: (value) {
+                controller.task = value;
+              },
               onSubmitted: (value) {
-                controller.taskController.text = value;
+                controller.task = value;
               },
             ).paddingAll(20),
             TextField(
-              controller: controller.descriptionController,
               decoration: const InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                 ),
                 labelText: 'Açıklama Ekle',
               ),
+              onChanged: (value) {
+                controller.description = value.toString();
+              },
               onSubmitted: (value) {
-                controller.descriptionController.text = value;
+                controller.description = value.toString();
               },
             ).paddingAll(20),
             Row(
@@ -113,6 +116,9 @@ class AddPage extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 controller.addTask();
+                print(
+                  controller.box.values,
+                );
               },
               style: ElevatedButton.styleFrom(
                 backgroundColor: Colors.black,

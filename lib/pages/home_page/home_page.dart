@@ -38,6 +38,44 @@ class HomePage extends StatelessWidget {
                           Text(
                             task.chain.length.toString(),
                           ),
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            physics: const BouncingScrollPhysics(),
+                            child: Row(
+                              children: [
+                                for (var i = 0; i < task.chain.length; i++)
+                                  if (task.chain[i]['chainDay'] == true)
+                                    InkWell(
+                                      onTap: () {
+                                        controller.box.getAt(controller.list.indexOf(task))!.chain[i]['isDone'] =
+                                            !controller.box.getAt(controller.list.indexOf(task))!.chain[i]['isDone']!;
+                                        controller.update();
+                                      },
+                                      child: Container(
+                                        alignment: Alignment.center,
+                                        width: 50,
+                                        height: 50,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(50),
+                                          color: task.chain[i]['isDone'] == true ? Colors.greenAccent : Colors.white,
+                                        ),
+                                        child: Text(
+                                          task.chain[i]['date'].day.toString(),
+                                        ),
+                                      ).paddingAll(5),
+                                    ),
+                              ],
+                            ),
+                          ),
+                          GestureDetector(
+                            onTap: () {
+                              print(task.chain.where((element) => element['chainDay'] == true).toList());
+                            },
+                            child: const Icon(
+                              Icons.details,
+                              color: Colors.red,
+                            ),
+                          ),
                         ],
                       ),
                     ).paddingAll(10),
@@ -46,11 +84,15 @@ class HomePage extends StatelessWidget {
             ),
           ),
           floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.black54,
             elevation: 0,
             onPressed: () {
               Get.to(() => const AddPage());
             },
-            child: const Icon(Icons.add),
+            child: const Icon(
+              Icons.add,
+              color: Colors.white,
+            ),
           ),
         );
       },

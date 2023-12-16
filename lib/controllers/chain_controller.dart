@@ -20,8 +20,10 @@ class ChainController extends GetxController {
     update();
   }
 
-  TextEditingController taskController = TextEditingController();
-  TextEditingController descriptionController = TextEditingController();
+  // TextEditingController taskController = TextEditingController();
+  // TextEditingController descriptionController = TextEditingController();
+  String task = '';
+  String description = '';
   DateTime selectedDate = DateTime.now();
 
   late int selectedDay;
@@ -96,17 +98,17 @@ class ChainController extends GetxController {
       ];
     }
 
-    if (taskController.text.isNotEmpty && days.containsValue(true)) {
+    if (task.isNotEmpty && days.containsValue(true)) {
       box.add(
         TaskModel(
-          task: taskController.text,
-          description: descriptionController.text,
+          task: task,
+          description: description,
           days: days,
           chain: chain,
         ),
       );
-      taskController.clear();
-      descriptionController.clear();
+      task = '';
+      description = '';
       days = {
         1: false,
         2: false,
@@ -116,6 +118,7 @@ class ChainController extends GetxController {
         6: false,
         7: false,
       };
+
       selectedDate = DateTime.now();
       updateChain();
       update();
